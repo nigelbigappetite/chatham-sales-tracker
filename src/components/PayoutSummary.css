@@ -1,0 +1,203 @@
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  user-select: none;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--wingverse-border);
+  transition: all 0.2s ease;
+}
+
+.section-header:hover {
+  border-bottom-color: var(--wingverse-secondary);
+}
+
+.section-header h2 {
+  color: var(--wingverse-text);
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.collapse-icon {
+  color: var(--wingverse-secondary);
+  font-size: 14px;
+  transition: transform 0.3s ease;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(247, 147, 30, 0.1);
+  border-radius: 8px;
+}
+
+.section-header:hover .collapse-icon {
+  background: rgba(247, 147, 30, 0.2);
+}
+
+.payout-rate {
+  color: var(--wingverse-text-light);
+  font-size: 15px;
+  margin-bottom: 24px;
+  font-weight: 500;
+  padding: 12px 16px;
+  background: rgba(255, 107, 53, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid var(--wingverse-primary);
+}
+
+.empty-state {
+  color: var(--wingverse-text-light);
+  text-align: center;
+  padding: 60px 20px;
+  font-style: italic;
+  font-size: 16px;
+}
+
+.payouts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.payout-card {
+  border: 2px solid var(--wingverse-border);
+  border-radius: 20px;
+  padding: 28px;
+  background: linear-gradient(135deg, #FFF9F5 0%, #FFFFFF 100%);
+  box-shadow: var(--wingverse-shadow);
+  transition: all 0.3s ease;
+  border-left: 5px solid var(--wingverse-secondary);
+}
+
+.payout-card:hover {
+  box-shadow: var(--wingverse-shadow-lg);
+  transform: translateY(-4px);
+  border-left-color: var(--wingverse-primary);
+}
+
+.payout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.payout-header h3 {
+  color: var(--wingverse-text);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--wingverse-primary) 0%, var(--wingverse-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.payout-totals {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.total-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.total-item .label {
+  color: var(--wingverse-text-light);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.total-item .value {
+  color: var(--wingverse-text);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.total-item.highlight .value {
+  color: var(--wingverse-primary);
+  font-size: 32px;
+  background: linear-gradient(135deg, var(--wingverse-primary) 0%, var(--wingverse-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.payout-orders {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid var(--wingverse-border);
+}
+
+.payout-orders h4 {
+  color: var(--wingverse-text);
+  font-size: 18px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.payout-order-item {
+  background: var(--wingverse-card);
+  border: 1px solid var(--wingverse-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  box-shadow: var(--wingverse-shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.payout-order-item:hover {
+  box-shadow: var(--wingverse-shadow);
+  transform: translateY(-2px);
+  border-color: var(--wingverse-primary-light);
+}
+
+.payout-order-item .order-packs {
+  color: var(--wingverse-text);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.payout-order-item .order-payout {
+  color: var(--wingverse-success);
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .payout-header {
+    flex-direction: column;
+  }
+  
+  .payout-totals {
+    width: 100%;
+  }
+  
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
+}

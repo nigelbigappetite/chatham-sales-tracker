@@ -1,0 +1,40 @@
+.dashboard {
+  margin-top: 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.dashboard-section {
+  background: var(--wingverse-card);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: var(--wingverse-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.dashboard-section:hover {
+  box-shadow: var(--wingverse-shadow-lg);
+  transform: translateY(-2px);
+}
+
+.dashboard-section.full-width {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .dashboard-section.full-width {
+    grid-column: 1;
+  }
+}
+
