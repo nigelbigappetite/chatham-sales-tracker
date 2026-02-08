@@ -13,8 +13,7 @@
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--wingverse-border);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -26,7 +25,7 @@
 .logo {
   height: 64px;
   width: auto;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .app-header h1 {
@@ -35,52 +34,36 @@
   font-size: 32px;
   font-weight: 700;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--wingverse-primary) 0%, var(--wingverse-secondary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
-.refresh-button {
-  background: linear-gradient(135deg, var(--wingverse-primary) 0%, var(--wingverse-primary-dark) 100%);
-  color: white;
-  border: none;
+.refresh-button,
+.create-order-button {
+  background: var(--wingverse-primary);
+  color: var(--wingverse-text);
+  border: 1px solid var(--wingverse-border-strong);
   padding: 14px 28px;
   border-radius: 12px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: var(--wingverse-shadow);
-  position: relative;
-  overflow: hidden;
+  box-shadow: var(--wingverse-shadow-sm);
 }
 
-.refresh-button::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.refresh-button:hover::before {
-  width: 300px;
-  height: 300px;
-}
-
-.refresh-button:hover {
+.refresh-button:hover,
+.create-order-button:hover {
+  background: var(--wingverse-primary-light);
   transform: translateY(-2px);
-  box-shadow: var(--wingverse-shadow-lg);
+  box-shadow: var(--wingverse-shadow);
 }
 
-.refresh-button:active {
+.refresh-button:active,
+.create-order-button:active {
   transform: translateY(0);
+}
+
+.create-order-button {
+  margin-left: 0;
 }
 
 .loading-container,
@@ -98,8 +81,8 @@
 }
 
 .loading-spinner {
-  border: 5px solid #F3F4F6;
-  border-top: 5px solid var(--wingverse-primary);
+  border: 5px solid var(--wingverse-border-strong);
+  border-top: 5px solid var(--wingverse-text-light);
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -113,8 +96,13 @@
   100% { transform: rotate(360deg); }
 }
 
+.loading-container p,
+.error-container p {
+  color: var(--wingverse-text-light);
+}
+
 .error-container h2 {
-  color: var(--wingverse-primary);
+  color: var(--wingverse-text);
   margin-bottom: 16px;
   font-size: 28px;
   font-weight: 700;
@@ -122,20 +110,20 @@
 
 .retry-button {
   margin-top: 24px;
-  background: linear-gradient(135deg, var(--wingverse-primary) 0%, var(--wingverse-primary-dark) 100%);
-  color: white;
-  border: none;
+  background: var(--wingverse-primary);
+  color: var(--wingverse-text);
+  border: 1px solid var(--wingverse-border-strong);
   padding: 14px 28px;
   border-radius: 12px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: var(--wingverse-shadow);
+  box-shadow: var(--wingverse-shadow-sm);
   transition: all 0.3s ease;
 }
 
 .retry-button:hover {
+  background: var(--wingverse-primary-light);
   transform: translateY(-2px);
-  box-shadow: var(--wingverse-shadow-lg);
+  box-shadow: var(--wingverse-shadow);
 }
-

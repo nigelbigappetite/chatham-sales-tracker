@@ -11,7 +11,7 @@
 }
 
 .section-header:hover {
-  border-bottom-color: var(--wingverse-secondary);
+  border-bottom-color: var(--wingverse-primary-light);
 }
 
 .section-header h2 {
@@ -23,7 +23,7 @@
 }
 
 .collapse-icon {
-  color: var(--wingverse-secondary);
+  color: var(--wingverse-text-light);
   font-size: 14px;
   transition: transform 0.3s ease;
   width: 24px;
@@ -31,12 +31,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(247, 147, 30, 0.1);
+  background: rgba(115, 115, 115, 0.2);
   border-radius: 8px;
 }
 
 .section-header:hover .collapse-icon {
-  background: rgba(247, 147, 30, 0.2);
+  background: rgba(115, 115, 115, 0.35);
 }
 
 .payout-rate {
@@ -45,7 +45,7 @@
   margin-bottom: 24px;
   font-weight: 500;
   padding: 12px 16px;
-  background: rgba(255, 107, 53, 0.05);
+  background: rgba(115, 115, 115, 0.15);
   border-radius: 12px;
   border-left: 4px solid var(--wingverse-primary);
 }
@@ -68,16 +68,16 @@
   border: 2px solid var(--wingverse-border);
   border-radius: 20px;
   padding: 28px;
-  background: linear-gradient(135deg, #FFF9F5 0%, #FFFFFF 100%);
+  background: var(--wingverse-card-hover);
   box-shadow: var(--wingverse-shadow);
   transition: all 0.3s ease;
-  border-left: 5px solid var(--wingverse-secondary);
+  border-left: 5px solid var(--wingverse-primary);
 }
 
 .payout-card:hover {
   box-shadow: var(--wingverse-shadow-lg);
   transform: translateY(-4px);
-  border-left-color: var(--wingverse-primary);
+  border-left-color: var(--wingverse-primary-light);
 }
 
 .payout-header {
@@ -94,10 +94,6 @@
   font-size: 28px;
   font-weight: 700;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--wingverse-primary) 0%, var(--wingverse-secondary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .payout-totals {
@@ -128,12 +124,8 @@
 }
 
 .total-item.highlight .value {
-  color: var(--wingverse-primary);
+  color: var(--wingverse-success);
   font-size: 32px;
-  background: linear-gradient(135deg, var(--wingverse-primary) 0%, var(--wingverse-secondary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .payout-orders {
@@ -172,7 +164,7 @@
 .payout-order-item:hover {
   box-shadow: var(--wingverse-shadow);
   transform: translateY(-2px);
-  border-color: var(--wingverse-primary-light);
+  border-color: var(--wingverse-border-strong);
 }
 
 .payout-order-item .order-packs {

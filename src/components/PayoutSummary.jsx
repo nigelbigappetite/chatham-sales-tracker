@@ -33,11 +33,11 @@ const PayoutSummary = ({ payouts = [] }) => {
                 <div className="payout-totals">
                   <div className="total-item">
                     <span className="label">Total Packs:</span>
-                    <span className="value">{payout.totalPacks.toFixed(0)}</span>
+                    <span className="value">{isNaN(payout.totalPacks) ? '0' : payout.totalPacks.toFixed(0)}</span>
                   </div>
                   <div className="total-item highlight">
                     <span className="label">Total Payout:</span>
-                    <span className="value">{formatCurrency(payout.totalPayout)}</span>
+                    <span className="value">{isNaN(payout.totalPayout) ? formatCurrency(0) : formatCurrency(payout.totalPayout)}</span>
                   </div>
                 </div>
               </div>
@@ -48,8 +48,8 @@ const PayoutSummary = ({ payouts = [] }) => {
                   <div className="orders-grid">
                     {payout.orders.map((order, orderIndex) => (
                       <div key={orderIndex} className="payout-order-item">
-                        <span className="order-packs">{order.packs} pack{order.packs !== 1 ? 's' : ''}</span>
-                        <span className="order-payout">{formatCurrency(order.payout)}</span>
+                        <span className="order-packs">{isNaN(order.packs) ? '0' : order.packs} pack{(isNaN(order.packs) ? 0 : order.packs) !== 1 ? 's' : ''}</span>
+                        <span className="order-payout">{isNaN(order.payout) ? formatCurrency(0) : formatCurrency(order.payout)}</span>
                       </div>
                     ))}
                   </div>

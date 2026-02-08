@@ -5,7 +5,8 @@ A dashboard for tracking sauce pack fulfillment orders and payouts for Chatham W
 ## Features
 
 - **Orders to Fulfill**: Displays all orders that have an order date but no fulfilled date
-- **Completed Orders**: Shows all orders that have been fulfilled, sorted by most recent
+- **Completed Orders**: Shows all orders that have been fulfilled, sorted by most recent (green accents)
+- **Create Order**: Add new orders from the dashboard; they are appended to the **Orders_Raw** sheet via a Google Apps Script web app
 - **Monthly Payout Summary**: Calculates monthly payouts based on the Chatham_Settlement sheet at £0.70 per sauce pack
 
 ## Setup
@@ -21,6 +22,8 @@ npm install
    - Or use File → Share → Publish to web (for CSV export)
 
 3. The sheet ID is already configured: `1BmS4hI42jae6CiQRayKNSeumGkOD1N8ohlQffZ6PsdQ`
+
+4. **Create Order (optional):** To add orders from the dashboard, add the Apps Script from `scripts/AppendOrderToSheet.gs` to your sheet (Extensions → Apps Script), deploy as a Web app (Anyone), and set `VITE_APP_SCRIPT_WEB_APP_URL` in your `.env` to the deployment URL (see `.env.example`).
 
 ## Running the Dashboard
 

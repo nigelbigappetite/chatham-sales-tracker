@@ -29,7 +29,7 @@
 }
 
 .collapse-icon {
-  color: var(--wingverse-primary);
+  color: var(--wingverse-text-light);
   font-size: 14px;
   transition: transform 0.3s ease;
   width: 24px;
@@ -37,17 +37,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 107, 53, 0.1);
+  background: rgba(115, 115, 115, 0.2);
   border-radius: 8px;
 }
 
 .section-header:hover .collapse-icon {
-  background: rgba(255, 107, 53, 0.2);
+  background: rgba(115, 115, 115, 0.35);
 }
 
 .order-count-badge {
-  background: linear-gradient(135deg, var(--wingverse-warning) 0%, #F97316 100%);
-  color: white;
+  background: var(--wingverse-warning);
+  color: var(--wingverse-text);
   padding: 6px 16px;
   border-radius: 12px;
   font-size: 14px;
@@ -95,7 +95,7 @@
   border: 1px solid var(--wingverse-border);
   border-radius: 16px;
   padding: 20px;
-  background: linear-gradient(135deg, #FFF9F5 0%, #FFFFFF 100%);
+  background: var(--wingverse-card-hover);
   transition: all 0.3s ease;
   box-shadow: var(--wingverse-shadow-sm);
   border-left: 4px solid var(--wingverse-warning);
@@ -104,7 +104,7 @@
 .order-card:hover {
   box-shadow: var(--wingverse-shadow);
   transform: translateX(4px);
-  border-left-color: var(--wingverse-primary);
+  border-left-color: var(--wingverse-primary-light);
 }
 
 .order-header {
@@ -116,7 +116,7 @@
 
 .order-number {
   font-weight: 700;
-  color: var(--wingverse-primary);
+  color: var(--wingverse-text);
   font-size: 18px;
   letter-spacing: -0.2px;
 }
@@ -159,17 +159,17 @@
 }
 
 .product-qty {
-  color: var(--wingverse-primary);
+  color: var(--wingverse-text-light);
   font-weight: 700;
   margin-left: 16px;
-  background: rgba(255, 107, 53, 0.1);
+  background: rgba(115, 115, 115, 0.2);
   padding: 4px 10px;
   border-radius: 8px;
   font-size: 13px;
 }
 
 .order-total-quantity {
-  color: var(--wingverse-primary);
+  color: var(--wingverse-text-light);
   font-weight: 700;
   font-size: 15px;
   margin-top: 12px;

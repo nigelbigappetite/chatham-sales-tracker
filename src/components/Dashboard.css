@@ -13,9 +13,8 @@
   border-radius: 20px;
   padding: 28px;
   box-shadow: var(--wingverse-shadow);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--wingverse-border);
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
 }
 
 .dashboard-section:hover {

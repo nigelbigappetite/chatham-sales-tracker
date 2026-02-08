@@ -5,25 +5,32 @@
 }
 
 :root {
-  /* Wingverse Brand Colors */
-  --wingverse-primary: #FF6B35;
-  --wingverse-primary-dark: #E85A2B;
-  --wingverse-primary-light: #FF8C61;
-  --wingverse-secondary: #F7931E;
-  --wingverse-accent: #FFB84D;
-  --wingverse-dark: #2C2C2C;
-  --wingverse-dark-light: #3A3A3A;
-  --wingverse-text: #1A1A1A;
-  --wingverse-text-light: #6B7280;
-  --wingverse-bg: #F8F9FA;
-  --wingverse-card: #FFFFFF;
-  --wingverse-success: #10B981;
-  --wingverse-warning: #F59E0B;
-  --wingverse-border: #E5E7EB;
-  --wingverse-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-  --wingverse-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
-  --wingverse-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-  --wingverse-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+  /* Monochrome theme – off-blacks and neutrals */
+  --wingverse-bg: #0f0f0f;
+  --wingverse-bg-elevated: #121212;
+  --wingverse-card: #1a1a1a;
+  --wingverse-card-hover: #242424;
+  --wingverse-text: #e5e5e5;
+  --wingverse-text-light: #a3a3a3;
+  --wingverse-border: #2a2a2a;
+  --wingverse-border-strong: #333;
+  /* Neutral accents (no orange) */
+  --wingverse-primary: #525252;
+  --wingverse-primary-dark: #404040;
+  --wingverse-primary-light: #737373;
+  --wingverse-secondary: #737373;
+  --wingverse-accent: #a3a3a3;
+  --wingverse-dark: #1a1a1a;
+  --wingverse-dark-light: #242424;
+  /* Pending / muted accent */
+  --wingverse-warning: #78716c;
+  /* Green – completed orders only */
+  --wingverse-success: #22c55e;
+  --wingverse-success-dark: #16a34a;
+  --wingverse-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --wingverse-shadow: 0 4px 6px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.25);
+  --wingverse-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.2);
+  --wingverse-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.45), 0 10px 10px rgba(0, 0, 0, 0.15);
 }
 
 body {
@@ -32,7 +39,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #FFF5F0 0%, #FFE8D6 50%, #FFF5F0 100%);
+  background: var(--wingverse-bg);
   background-attachment: fixed;
   min-height: 100vh;
   padding: 24px;
@@ -43,4 +50,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { fetchSheetData } from './services/sheetsService'
 import Dashboard from './components/Dashboard'
+import CreateOrderModal from './components/CreateOrderModal'
 import './App.css'
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   const [setupData, setSetupData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [showCreateOrder, setShowCreateOrder] = useState(false)
 
   useEffect(() => {
     loadData()
@@ -85,9 +87,19 @@ function App() {
       <header className="app-header">
         <img src="/wingverse logo transparent.png" alt="Wingverse Logo" className="logo" />
         <h1>Wingverse fulfillment tracker</h1>
+        <button type="button" onClick={() => setShowCreateOrder(true)} className="create-order-button">
+          Create order
+        </button>
         <button onClick={loadData} className="refresh-button">Refresh Data</button>
       </header>
       <Dashboard orders={orders} settlements={settlements} setupData={setupData} />
+      {showCreateOrder && (
+        <CreateOrderModal
+          onClose={() => setShowCreateOrder(false)}
+          onSuccess={loadData}
+          setupData={setupData}
+        />
+      )}
     </div>
   )
 }

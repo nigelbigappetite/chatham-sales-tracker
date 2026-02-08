@@ -330,7 +330,16 @@ const Dashboard = ({ orders, settlements, setupData }) => {
 
   // Process payout summary from Chatham_Settlement
   const payoutData = useMemo(() => {
-    if (!settlements || settlements.length === 0) return []
+    if (!settlements || settlements.length === 0) {
+      console.log('No settlement data available for payout summary')
+      return []
+    }
+    
+    console.log(`Processing ${settlements.length} settlement rows`)
+    if (settlements.length > 0) {
+      console.log('Sample settlement row keys:', Object.keys(settlements[0]))
+      console.log('Sample settlement row:', settlements[0])
+    }
     
     const today = new Date()
     const currentMonthKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`
@@ -338,29 +347,76 @@ const Dashboard = ({ orders, settlements, setupData }) => {
     const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1)
     const nextMonthKey = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}`
     
+    console.log(`Current month key: ${currentMonthKey}, Next month key: ${nextMonthKey}`)
+    
     // The settlement data already has Month, MonthKey, Packs, and AmountOwed
     // Each row is already a monthly summary
-    return settlements
-      .map(settlement => {
-        const month = settlement['Month'] || ''
-        const monthKey = String(settlement['MonthKey'] || '')
-        const packs = parseFloat(settlement['Packs']) || 0
-        const amountOwed = parseFloat(settlement['AmountOwed']) || 0
+    const processed = settlements
+      .map((settlement, index) => {
+        const month = settlement['Month'] || settlement['month'] || settlement['Month Name'] || ''
+        const monthKey = String(settlement['MonthKey'] || settlement['monthKey'] || settlement['Month Key'] || settlement['MonthKey'] || '')
         
-        if (!month || !monthKey || monthKey === '') return null
+        // Try to find Packs column - check various formats
+        const packsRaw = settlement['Packs'] || settlement['packs'] || settlement['Pack'] || settlement['Total Packs'] || settlement['totalPacks'] || 0
+        // Remove currency symbols, commas, and whitespace before parsing
+        const packsStr = String(packsRaw).replace(/[£$,\s]/g, '').trim()
+        const packs = parseFloat(packsStr) || 0
+        
+        // Try to find AmountOwed column - check various formats
+        const amountRaw = settlement['AmountOwed'] || settlement['amountOwed'] || settlement['Amount Owed'] || 
+                         settlement['Payout'] || settlement['payout'] || settlement['Total Payout'] || 
+                         settlement['totalPayout'] || settlement['Amount'] || settlement['amount'] || 0
+        // Remove currency symbols, commas, and whitespace before parsing
+        const amountStr = String(amountRaw).replace(/[£$,\s]/g, '').trim()
+        const amountOwed = parseFloat(amountStr) || 0
+        
+        if (index < 5) {
+          console.log(`Settlement row ${index}:`, {
+            month,
+            monthKey,
+            packsRaw: packsRaw,
+            packsParsed: packs,
+            amountRaw: amountRaw,
+            amountParsed: amountOwed,
+            allKeys: Object.keys(settlement),
+            sampleValues: Object.entries(settlement).slice(0, 5).map(([k, v]) => ({ [k]: v }))
+          })
+        }
+        
+        if (!month || !monthKey || monthKey === '') {
+          if (index < 3) {
+            console.log(`Skipping row ${index}: missing month or monthKey`)
+          }
+          return null
+        }
+        
+        // Check for NaN values
+        if (isNaN(packs) || isNaN(amountOwed)) {
+          console.warn(`Row ${index} has NaN values:`, {
+            month,
+            packs: packs,
+            amountOwed: amountOwed,
+            packsRaw,
+            amountRaw
+          })
+        }
         
         return {
           month: month,
           monthKey: monthKey,
-          totalPacks: packs,
-          totalPayout: amountOwed,
-          orders: [{ packs: packs, payout: amountOwed }] // Single entry for the month
+          totalPacks: isNaN(packs) ? 0 : packs,
+          totalPayout: isNaN(amountOwed) ? 0 : amountOwed,
+          orders: [{ packs: isNaN(packs) ? 0 : packs, payout: isNaN(amountOwed) ? 0 : amountOwed }]
         }
       })
       .filter(item => {
         if (!item || !item.monthKey) return false
         // Show previous months and current month (exclude future months)
-        return item.monthKey < nextMonthKey
+        const shouldShow = item.monthKey < nextMonthKey
+        if (!shouldShow && item) {
+          console.log(`Filtering out future month: ${item.month} (${item.monthKey})`)
+        }
+        return shouldShow
       })
       .sort((a, b) => {
         // Ensure both monthKeys are strings before comparing
@@ -368,6 +424,13 @@ const Dashboard = ({ orders, settlements, setupData }) => {
         const keyB = String(b.monthKey || '')
         return keyB.localeCompare(keyA)
       })
+    
+    console.log(`Processed ${processed.length} payout entries`)
+    if (processed.length > 0) {
+      console.log('Payout entries:', processed.map(p => ({ month: p.month, packs: p.totalPacks, payout: p.totalPayout })))
+    }
+    
+    return processed
   }, [settlements])
 
   return (

@@ -37,16 +37,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(16, 185, 129, 0.1);
+  background: rgba(34, 197, 94, 0.2);
   border-radius: 8px;
 }
 
 .section-header:hover .collapse-icon {
-  background: rgba(16, 185, 129, 0.2);
+  background: rgba(34, 197, 94, 0.35);
 }
 
 .completed-orders .order-count-badge {
-  background: linear-gradient(135deg, var(--wingverse-success) 0%, #059669 100%);
+  background: var(--wingverse-success);
   color: white;
   padding: 6px 16px;
   border-radius: 12px;
@@ -85,23 +85,22 @@
 .orders-list::-webkit-scrollbar-thumb {
   background: var(--wingverse-success);
   border-radius: 10px;
-  opacity: 0.5;
 }
 
 .orders-list::-webkit-scrollbar-thumb:hover {
-  opacity: 0.8;
+  background: var(--wingverse-success-dark);
 }
 
 .order-card.completed {
   border-left: 4px solid var(--wingverse-success);
-  background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
+  background: var(--wingverse-card-hover);
 }
 
 .order-card {
   border: 1px solid var(--wingverse-border);
   border-radius: 16px;
   padding: 20px;
-  background: linear-gradient(135deg, #FFF9F5 0%, #FFFFFF 100%);
+  background: var(--wingverse-card-hover);
   transition: all 0.3s ease;
   box-shadow: var(--wingverse-shadow-sm);
 }
@@ -120,7 +119,7 @@
 
 .order-number {
   font-weight: 700;
-  color: var(--wingverse-primary);
+  color: var(--wingverse-text);
   font-size: 18px;
   letter-spacing: -0.2px;
 }
@@ -132,7 +131,7 @@
 }
 
 .fulfilled-badge {
-  background: linear-gradient(135deg, var(--wingverse-success) 0%, #059669 100%);
+  background: var(--wingverse-success);
   color: white;
   padding: 6px 12px;
   border-radius: 10px;
@@ -176,17 +175,17 @@
 }
 
 .product-qty {
-  color: var(--wingverse-primary);
+  color: var(--wingverse-text-light);
   font-weight: 700;
   margin-left: 16px;
-  background: rgba(255, 107, 53, 0.1);
+  background: rgba(115, 115, 115, 0.2);
   padding: 4px 10px;
   border-radius: 8px;
   font-size: 13px;
 }
 
 .order-total-quantity {
-  color: var(--wingverse-primary);
+  color: var(--wingverse-text-light);
   font-weight: 700;
   font-size: 15px;
   margin-top: 12px;
