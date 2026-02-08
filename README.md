@@ -1,6 +1,6 @@
-# Wingverse Fulfillment Tracker
+# Wingverse Order Tracker
 
-A dashboard for tracking sauce pack fulfillment orders and payouts for Chatham Wing Shack kitchen.
+A dashboard for tracking sauce pack orders and payouts for Chatham Wing Shack kitchen.
 
 ## Features
 

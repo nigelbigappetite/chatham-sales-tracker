@@ -4,6 +4,8 @@ import Dashboard from './components/Dashboard'
 import CreateOrderModal from './components/CreateOrderModal'
 import './App.css'
 
+const DARK_MODE_KEY = 'wingverse-order-tracker-dark'
+
 function App() {
   const [orders, setOrders] = useState([])
   const [settlements, setSettlements] = useState([])
@@ -11,10 +13,29 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [showCreateOrder, setShowCreateOrder] = useState(false)
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      return localStorage.getItem(DARK_MODE_KEY) === 'true'
+    } catch {
+      return false
+    }
+  })
 
   useEffect(() => {
     loadData()
   }, [])
+
+  useEffect(() => {
+    const root = document.documentElement
+    if (darkMode) {
+      root.setAttribute('data-theme', 'dark')
+    } else {
+      root.removeAttribute('data-theme')
+    }
+    try {
+      localStorage.setItem(DARK_MODE_KEY, String(darkMode))
+    } catch (_) {}
+  }, [darkMode])
 
   const loadData = async () => {
     try {
@@ -86,7 +107,16 @@ function App() {
     <div className="App">
       <header className="app-header">
         <img src="/wingverse logo transparent.png" alt="Wingverse Logo" className="logo" />
-        <h1>Wingverse fulfillment tracker</h1>
+        <h1>Wingverse order tracker</h1>
+        <button
+          type="button"
+          onClick={() => setDarkMode((d) => !d)}
+          className="theme-toggle"
+          title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {darkMode ? '☀️ Light' : '🌙 Dark'}
+        </button>
         <button type="button" onClick={() => setShowCreateOrder(true)} className="create-order-button">
           Create order
         </button>

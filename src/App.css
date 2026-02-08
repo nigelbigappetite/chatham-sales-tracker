@@ -62,6 +62,25 @@
   transform: translateY(0);
 }
 
+.theme-toggle {
+  background: var(--wingverse-card-hover);
+  color: var(--wingverse-text);
+  border: 1px solid var(--wingverse-border-strong);
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--wingverse-shadow-sm);
+}
+
+.theme-toggle:hover {
+  background: var(--wingverse-border);
+  transform: translateY(-2px);
+  box-shadow: var(--wingverse-shadow);
+}
+
 .create-order-button {
   margin-left: 0;
 }

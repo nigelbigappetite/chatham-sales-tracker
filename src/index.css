@@ -5,7 +5,32 @@
 }
 
 :root {
-  /* Monochrome theme – off-blacks and neutrals */
+  /* Light theme (default): white and black */
+  --wingverse-bg: #f5f5f5;
+  --wingverse-bg-elevated: #fafafa;
+  --wingverse-card: #ffffff;
+  --wingverse-card-hover: #f8f8f8;
+  --wingverse-text: #171717;
+  --wingverse-text-light: #525252;
+  --wingverse-border: #e5e5e5;
+  --wingverse-border-strong: #a3a3a3;
+  --wingverse-primary: #404040;
+  --wingverse-primary-dark: #262626;
+  --wingverse-primary-light: #525252;
+  --wingverse-secondary: #525252;
+  --wingverse-accent: #737373;
+  --wingverse-dark: #171717;
+  --wingverse-dark-light: #262626;
+  --wingverse-warning: #78716c;
+  --wingverse-success: #22c55e;
+  --wingverse-success-dark: #16a34a;
+  --wingverse-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --wingverse-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+  --wingverse-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04);
+  --wingverse-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] {
   --wingverse-bg: #0f0f0f;
   --wingverse-bg-elevated: #121212;
   --wingverse-card: #1a1a1a;
@@ -14,7 +39,6 @@
   --wingverse-text-light: #a3a3a3;
   --wingverse-border: #2a2a2a;
   --wingverse-border-strong: #333;
-  /* Neutral accents (no orange) */
   --wingverse-primary: #525252;
   --wingverse-primary-dark: #404040;
   --wingverse-primary-light: #737373;
@@ -22,9 +46,7 @@
   --wingverse-accent: #a3a3a3;
   --wingverse-dark: #1a1a1a;
   --wingverse-dark-light: #242424;
-  /* Pending / muted accent */
   --wingverse-warning: #78716c;
-  /* Green – completed orders only */
   --wingverse-success: #22c55e;
   --wingverse-success-dark: #16a34a;
   --wingverse-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
