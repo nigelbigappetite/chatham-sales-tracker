@@ -122,7 +122,7 @@ function App() {
         </button>
         <button onClick={loadData} className="refresh-button">Refresh Data</button>
       </header>
-      <Dashboard orders={orders} settlements={settlements} setupData={setupData} />
+      <Dashboard orders={orders} settlements={settlements} setupData={setupData} onRefresh={loadData} />
       {showCreateOrder && (
         <CreateOrderModal
           onClose={() => setShowCreateOrder(false)}

@@ -177,3 +177,41 @@
   border-top: 2px solid var(--wingverse-border);
   text-align: right;
 }
+
+.orders-to-fulfill-error {
+  color: #b91c1c;
+  background: rgba(185, 28, 28, 0.1);
+  border: 1px solid rgba(185, 28, 28, 0.3);
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.order-card-actions {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--wingverse-border);
+}
+
+.mark-fulfilled-button {
+  background: #171717;
+  color: #fff;
+  border: 1px solid #262626;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mark-fulfilled-button:hover:not(:disabled) {
+  background: #262626;
+  color: #fff;
+}
+
+.mark-fulfilled-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

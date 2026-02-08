@@ -255,7 +255,7 @@ const groupOrdersByOrderID = (orders, productNameMap) => {
   return Object.values(grouped)
 }
 
-const Dashboard = ({ orders, settlements, setupData }) => {
+const Dashboard = ({ orders, settlements, setupData, onRefresh }) => {
   // Create product name mapping from setup data
   const productNameMap = useMemo(() => {
     console.log('Dashboard: setupData received', setupData?.length || 0, 'rows')
@@ -437,7 +437,7 @@ const Dashboard = ({ orders, settlements, setupData }) => {
     <div className="dashboard">
       <div className="dashboard-grid">
         <div className="dashboard-section">
-          <OrdersToFulfill orders={ordersToFulfill} />
+          <OrdersToFulfill orders={ordersToFulfill} onRefresh={onRefresh} />
         </div>
         <div className="dashboard-section">
           <CompletedOrders orders={completedOrders} />

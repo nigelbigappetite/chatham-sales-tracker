@@ -1,8 +1,26 @@
 import { useState } from 'react'
+import { markOrderFulfilled } from '../services/orderService'
 import './OrdersToFulfill.css'
 
-const OrdersToFulfill = ({ orders = [] }) => {
+const OrdersToFulfill = ({ orders = [], onRefresh }) => {
   const [isOpen, setIsOpen] = useState(true)
+  const [fulfillingId, setFulfillingId] = useState(null)
+  const [error, setError] = useState('')
+
+  const handleMarkFulfilled = async (order) => {
+    const orderId = (order.orderNumber && String(order.orderNumber).trim()) || ''
+    if (!orderId) return
+    setError('')
+    setFulfillingId(orderId)
+    const today = new Date().toISOString().slice(0, 10)
+    const result = await markOrderFulfilled(orderId, today)
+    setFulfillingId(null)
+    if (result.ok) {
+      onRefresh?.()
+    } else {
+      setError(result.message || 'Failed to mark as fulfilled')
+    }
+  }
 
   return (
     <div className="orders-to-fulfill">
@@ -16,6 +34,7 @@ const OrdersToFulfill = ({ orders = [] }) => {
       
       {isOpen && (
         <>
+          {error && <p className="orders-to-fulfill-error" role="alert">{error}</p>}
           {orders.length === 0 ? (
             <p className="empty-state">No orders pending fulfillment</p>
           ) : (
@@ -39,6 +58,17 @@ const OrdersToFulfill = ({ orders = [] }) => {
               {order.totalQuantity > 0 && (
                 <div className="order-total-quantity">Total Qty: {order.totalQuantity}</div>
               )}
+              <div className="order-card-actions">
+                <button
+                  type="button"
+                  className="mark-fulfilled-button"
+                  onClick={() => handleMarkFulfilled(order)}
+                  disabled={fulfillingId !== null}
+                  title="Mark this order as shipped (sets FulfilmentDate to today)"
+                >
+                  {fulfillingId === String(order.orderNumber || '') ? 'Updating…' : 'Mark as fulfilled'}
+                </button>
+              </div>
             </div>
           ))}
             </div>

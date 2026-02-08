@@ -8,23 +8,25 @@
  *    - Who has access: Anyone
  * 4. Copy the Web app URL (ends in /exec) into your .env as VITE_APP_SCRIPT_WEB_APP_URL
  *
- * POST body (JSON):
- * {
- *   "orderId": "#1005",
- *   "orderDate": "2026-02-09",
- *   "fulfilmentPartner": "CHATHAM",
- *   "orderTotal": 45.99,
- *   "lineItems": [
- *     { "sku": "WVSHACK500G", "qty": 1, "lineRevenue": 14.99 },
- *     { "sku": "WVHONEYMUST500", "qty": 2, "lineRevenue": 30.98 }
- *   ]
- * }
+ * POST body (JSON) – create order:
+ * { "orderId": "#1005", "orderDate": "2026-02-09", "fulfilmentPartner": "CHATHAM", "orderTotal": 45.99, "lineItems": [...] }
+ *
+ * POST body (JSON) – mark order as fulfilled (sets FulfilmentDate for all rows with that OrderID):
+ * { "action": "markFulfilled", "orderId": "#1004", "fulfilmentDate": "2026-02-09" }
  */
 
 function doPost(e) {
   try {
     const payload = e.postData && e.postData.contents ? JSON.parse(e.postData.contents) : null;
-    if (!payload || !payload.orderId || !payload.lineItems || !payload.lineItems.length) {
+    if (!payload) {
+      return createJsonResponse(400, { success: false, error: 'Invalid payload' });
+    }
+
+    if (payload.action === 'markFulfilled') {
+      return handleMarkFulfilled(payload);
+    }
+
+    if (!payload.orderId || !payload.lineItems || !payload.lineItems.length) {
       return createJsonResponse(400, { success: false, error: 'Missing orderId or lineItems' });
     }
 
@@ -52,6 +54,35 @@ function doPost(e) {
     console.error(err);
     return createJsonResponse(500, { success: false, error: err.toString() });
   }
+}
+
+function handleMarkFulfilled(payload) {
+  var orderId = payload.orderId ? String(payload.orderId).trim() : '';
+  var fulfilmentDateStr = payload.fulfilmentDate ? String(payload.fulfilmentDate).trim() : '';
+  if (!orderId || !fulfilmentDateStr) {
+    return createJsonResponse(400, { success: false, error: 'Missing orderId or fulfilmentDate' });
+  }
+  var sheet = getOrdersRawSheet();
+  var data = sheet.getDataRange().getValues();
+  if (data.length < 2) {
+    return createJsonResponse(200, { success: true, rowsUpdated: 0 });
+  }
+  var headers = data[0];
+  var orderIdCol = 0;
+  var fulfilmentDateCol = 2;
+  var updated = 0;
+  for (var i = 1; i < data.length; i++) {
+    var row = data[i];
+    var cellOrderId = row[orderIdCol] != null ? String(row[orderIdCol]).trim() : '';
+    if (cellOrderId === orderId) {
+      row[fulfilmentDateCol] = formatDateForSheet(fulfilmentDateStr);
+      updated++;
+    }
+  }
+  if (updated > 0) {
+    sheet.getRange(2, 1, data.length, headers.length).setValues(data.slice(1));
+  }
+  return createJsonResponse(200, { success: true, rowsUpdated: updated });
 }
 
 function getOrdersRawSheet() {
