@@ -215,3 +215,111 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.fulfill-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+.fulfill-modal {
+  background: var(--wingverse-card);
+  border: 1px solid var(--wingverse-border);
+  border-radius: 20px;
+  box-shadow: var(--wingverse-shadow-xl);
+  max-width: 400px;
+  width: 100%;
+}
+
+.fulfill-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 12px;
+  border-bottom: 1px solid var(--wingverse-border);
+}
+
+.fulfill-modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--wingverse-text);
+}
+
+.fulfill-modal-close {
+  background: none;
+  border: none;
+  color: var(--wingverse-text-light);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 8px;
+  border-radius: 8px;
+}
+
+.fulfill-modal-close:hover {
+  color: var(--wingverse-text);
+  background: rgba(115, 115, 115, 0.2);
+}
+
+.fulfill-modal-order {
+  padding: 16px 20px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--wingverse-text-light);
+}
+
+.fulfill-modal-field {
+  padding: 20px;
+}
+
+.fulfill-modal-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--wingverse-text-light);
+}
+
+.fulfill-modal-field input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--wingverse-border);
+  border-radius: 12px;
+  background: var(--wingverse-bg-elevated);
+  color: var(--wingverse-text);
+  font-size: 15px;
+}
+
+.fulfill-modal-field input:focus {
+  outline: none;
+  border-color: var(--wingverse-primary-light);
+}
+
+.fulfill-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--wingverse-border);
+}
+
+.fulfill-modal-cancel {
+  background: transparent;
+  border: 1px solid var(--wingverse-border);
+  color: var(--wingverse-text);
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fulfill-modal-cancel:hover {
+  background: rgba(115, 115, 115, 0.2);
+}

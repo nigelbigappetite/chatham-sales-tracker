@@ -2,20 +2,36 @@ import { useState } from 'react'
 import { markOrderFulfilled } from '../services/orderService'
 import './OrdersToFulfill.css'
 
+const todayISO = () => new Date().toISOString().slice(0, 10)
+
 const OrdersToFulfill = ({ orders = [], onRefresh }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [fulfillingId, setFulfillingId] = useState(null)
   const [error, setError] = useState('')
+  const [fulfillModalOrder, setFulfillModalOrder] = useState(null)
+  const [fulfillDate, setFulfillDate] = useState(todayISO)
 
-  const handleMarkFulfilled = async (order) => {
-    const orderId = (order.orderNumber && String(order.orderNumber).trim()) || ''
+  const openFulfillModal = (order) => {
+    setError('')
+    setFulfillModalOrder(order)
+    setFulfillDate(todayISO())
+  }
+
+  const closeFulfillModal = () => {
+    setFulfillModalOrder(null)
+    setFulfillDate(todayISO())
+  }
+
+  const handleConfirmFulfilled = async () => {
+    if (!fulfillModalOrder) return
+    const orderId = (fulfillModalOrder.orderNumber && String(fulfillModalOrder.orderNumber).trim()) || ''
     if (!orderId) return
     setError('')
     setFulfillingId(orderId)
-    const today = new Date().toISOString().slice(0, 10)
-    const result = await markOrderFulfilled(orderId, today)
+    const result = await markOrderFulfilled(orderId, fulfillDate)
     setFulfillingId(null)
     if (result.ok) {
+      closeFulfillModal()
       onRefresh?.()
     } else {
       setError(result.message || 'Failed to mark as fulfilled')
@@ -62,9 +78,9 @@ const OrdersToFulfill = ({ orders = [], onRefresh }) => {
                 <button
                   type="button"
                   className="mark-fulfilled-button"
-                  onClick={() => handleMarkFulfilled(order)}
+                  onClick={() => openFulfillModal(order)}
                   disabled={fulfillingId !== null}
-                  title="Mark this order as shipped (sets FulfilmentDate to today)"
+                  title="Mark this order as shipped (set FulfilmentDate)"
                 >
                   {fulfillingId === String(order.orderNumber || '') ? 'Updating…' : 'Mark as fulfilled'}
                 </button>
@@ -74,6 +90,44 @@ const OrdersToFulfill = ({ orders = [], onRefresh }) => {
             </div>
           )}
         </>
+      )}
+
+      {fulfillModalOrder && (
+        <div className="fulfill-modal-overlay" onClick={closeFulfillModal}>
+          <div className="fulfill-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="fulfill-modal-header">
+              <h3>Mark as fulfilled</h3>
+              <button type="button" className="fulfill-modal-close" onClick={closeFulfillModal} aria-label="Close">
+                ×
+              </button>
+            </div>
+            <p className="fulfill-modal-order">
+              Order #{fulfillModalOrder.orderNumber || 'N/A'}
+            </p>
+            <div className="fulfill-modal-field">
+              <label htmlFor="fulfill-date">Fulfilment date (date shipped)</label>
+              <input
+                id="fulfill-date"
+                type="date"
+                value={fulfillDate}
+                onChange={(e) => setFulfillDate(e.target.value)}
+              />
+            </div>
+            <div className="fulfill-modal-actions">
+              <button type="button" className="fulfill-modal-cancel" onClick={closeFulfillModal}>
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="mark-fulfilled-button"
+                onClick={handleConfirmFulfilled}
+                disabled={fulfillingId !== null}
+              >
+                {fulfillingId ? 'Updating…' : 'Mark as fulfilled'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )
