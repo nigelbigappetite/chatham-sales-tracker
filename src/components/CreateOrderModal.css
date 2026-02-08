@@ -196,9 +196,9 @@
 }
 
 .create-order-submit {
-  background: var(--wingverse-primary);
-  color: var(--wingverse-text);
-  border: 1px solid var(--wingverse-border-strong);
+  background: #171717;
+  color: #fff;
+  border: 1px solid #262626;
   padding: 12px 24px;
   border-radius: 12px;
   font-size: 15px;
@@ -207,7 +207,8 @@
 }
 
 .create-order-submit:hover:not(:disabled) {
-  background: var(--wingverse-primary-light);
+  background: #262626;
+  color: #fff;
 }
 
 .create-order-submit:disabled {

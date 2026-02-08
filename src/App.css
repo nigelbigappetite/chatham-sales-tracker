@@ -38,9 +38,9 @@
 
 .refresh-button,
 .create-order-button {
-  background: var(--wingverse-primary);
-  color: var(--wingverse-text);
-  border: 1px solid var(--wingverse-border-strong);
+  background: #171717;
+  color: #fff;
+  border: 1px solid #262626;
   padding: 14px 28px;
   border-radius: 12px;
   font-size: 15px;
@@ -52,7 +52,8 @@
 
 .refresh-button:hover,
 .create-order-button:hover {
-  background: var(--wingverse-primary-light);
+  background: #262626;
+  color: #fff;
   transform: translateY(-2px);
   box-shadow: var(--wingverse-shadow);
 }
@@ -129,9 +130,9 @@
 
 .retry-button {
   margin-top: 24px;
-  background: var(--wingverse-primary);
-  color: var(--wingverse-text);
-  border: 1px solid var(--wingverse-border-strong);
+  background: #171717;
+  color: #fff;
+  border: 1px solid #262626;
   padding: 14px 28px;
   border-radius: 12px;
   font-size: 16px;
@@ -142,7 +143,8 @@
 }
 
 .retry-button:hover {
-  background: var(--wingverse-primary-light);
+  background: #262626;
+  color: #fff;
   transform: translateY(-2px);
   box-shadow: var(--wingverse-shadow);
 }
