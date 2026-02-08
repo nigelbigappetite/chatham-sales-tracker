@@ -2,12 +2,21 @@ import { useState, useMemo } from 'react'
 import { appendOrder } from '../services/orderService'
 import './CreateOrderModal.css'
 
-// Build list of { sku, productName } from Setup sheet data (same column detection as Dashboard)
+// Parse price/revenue from Setup (handles "16.99", "£6.50", etc.)
+function parseLineRevenue(val) {
+  if (val == null || val === '') return null
+  const s = String(val).replace(/[£$,\s]/g, '').trim()
+  const n = parseFloat(s)
+  return Number.isFinite(n) ? n : null
+}
+
+// Build list of { sku, productName, unitPrice } from Setup (SKU Map & COGS table; uses LineRevenue column)
 function getSkuOptions(setupData) {
   if (!setupData || setupData.length === 0) return []
   const options = []
   let skuCol = null
   let productCol = null
+  let lineRevenueCol = null
 
   for (let i = 0; i < Math.min(15, setupData.length); i++) {
     const row = setupData[i]
@@ -17,13 +26,15 @@ function getSkuOptions(setupData) {
         const v = (val || '').toString().trim().toLowerCase()
         if (v === 'sku') skuCol = key
         if (v === 'product' || v.includes('product')) productCol = key
+        if (v === 'linerevenue') lineRevenueCol = key
       }
       for (let j = i + 1; j < setupData.length; j++) {
         const item = setupData[j]
         const sku = (item[skuCol] || '').toString().trim()
         const product = (item[productCol] || '').toString().trim()
         if (sku && product && sku.toLowerCase() !== 'sku' && product.toLowerCase() !== 'product') {
-          options.push({ sku, productName: product })
+          const unitPrice = lineRevenueCol != null ? parseLineRevenue(item[lineRevenueCol]) : null
+          options.push({ sku, productName: product, unitPrice })
         }
       }
       break
@@ -34,11 +45,15 @@ function getSkuOptions(setupData) {
     const keys = Object.keys(setupData[0] || {})
     const skuKey = keys.find((k) => k.toLowerCase().trim() === 'sku')
     const productKey = keys.find((k) => k.toLowerCase().trim() === 'product')
+    const lineRevenueKey = keys.find((k) => k.toLowerCase().trim() === 'linerevenue')
     if (skuKey && productKey) {
       setupData.forEach((item) => {
         const sku = (item[skuKey] || '').toString().trim()
         const product = (item[productKey] || '').toString().trim()
-        if (sku && product) options.push({ sku, productName: product })
+        if (sku && product) {
+          const unitPrice = lineRevenueKey != null ? parseLineRevenue(item[lineRevenueKey]) : null
+          options.push({ sku, productName: product, unitPrice })
+        }
       })
     }
   }
@@ -67,7 +82,25 @@ export default function CreateOrderModal({ onClose, onSuccess, setupData }) {
     setLineItems((prev) => prev.filter((_, i) => i !== index))
   }
   const updateLine = (index, field, value) => {
-    setLineItems((prev) => prev.map((line, i) => (i === index ? { ...line, [field]: value } : line)))
+    setLineItems((prev) =>
+      prev.map((line, i) => {
+        if (i !== index) return line
+        const next = { ...line, [field]: value }
+        if (field === 'sku') {
+          const opt = skuOptions.find((o) => o.sku === value)
+          const unitPrice = opt?.unitPrice
+          if (unitPrice != null) {
+            const qty = Number(next.qty) || 1
+            next.lineRevenue = unitPrice * qty
+          }
+        }
+        if (field === 'qty') {
+          const opt = skuOptions.find((o) => o.sku === line.sku)
+          if (opt?.unitPrice != null) next.lineRevenue = opt.unitPrice * (Number(value) || 0)
+        }
+        return next
+      })
+    )
   }
 
   const computedTotal = useMemo(() => {
