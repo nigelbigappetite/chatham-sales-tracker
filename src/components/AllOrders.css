@@ -46,8 +46,8 @@
 }
 
 .order-count-badge {
-  background: var(--wingverse-primary);
-  color: var(--wingverse-text);
+  background: var(--wingverse-badge-accent);
+  color: var(--wingverse-badge-accent-text);
   padding: 6px 16px;
   border-radius: 12px;
   font-size: 14px;
@@ -145,8 +145,8 @@
 }
 
 .status-badge.pending {
-  background: var(--wingverse-warning);
-  color: var(--wingverse-text);
+  background: var(--wingverse-badge-accent);
+  color: var(--wingverse-badge-accent-text);
 }
 
 .order-dates {

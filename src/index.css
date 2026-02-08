@@ -28,6 +28,9 @@
   --wingverse-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
   --wingverse-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04);
   --wingverse-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+  /* Light: off-black badge accent (not pitch black) */
+  --wingverse-badge-accent: #404040;
+  --wingverse-badge-accent-text: #fff;
 }
 
 [data-theme="dark"] {
@@ -53,6 +56,8 @@
   --wingverse-shadow: 0 4px 6px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.25);
   --wingverse-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.2);
   --wingverse-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.45), 0 10px 10px rgba(0, 0, 0, 0.15);
+  --wingverse-badge-accent: #525252;
+  --wingverse-badge-accent-text: #fff;
 }
 
 body {
