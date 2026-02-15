@@ -23,7 +23,7 @@ npm install
 
 3. The sheet ID is already configured: `1BmS4hI42jae6CiQRayKNSeumGkOD1N8ohlQffZ6PsdQ`
 
-4. **Create Order (optional):** To add orders from the dashboard, add the Apps Script from `scripts/AppendOrderToSheet.gs` to your sheet (Extensions → Apps Script), deploy as a Web app (Anyone), and set `VITE_APP_SCRIPT_WEB_APP_URL` in your `.env` to the deployment URL (see `.env.example`).
+4. **Create Order / Mark fulfilled (optional):** Add the Apps Script from `scripts/AppendOrderToSheet.gs` to your sheet (Extensions → Apps Script), deploy as a Web app (Anyone). For **local dev** set `VITE_APP_SCRIPT_WEB_APP_URL` in `.env`. For **production (Vercel)** set `APP_SCRIPT_WEB_APP_URL` in Vercel → Settings → Environment Variables (the app uses a serverless proxy to avoid CORS).
 
 ## Running the Dashboard
 

@@ -1,9 +1,16 @@
 /**
- * Sends a new order to the Google Apps Script web app, which appends rows to Orders_Raw.
- * Requires VITE_APP_SCRIPT_WEB_APP_URL to be set in .env.
+ * Create order / Mark fulfilled: calls Google Apps Script (append to Orders_Raw, or set FulfilmentDate).
+ * In production (Vercel) we use the /api/sheets-app proxy to avoid CORS. Set APP_SCRIPT_WEB_APP_URL in Vercel.
+ * In development we call the script URL directly if VITE_APP_SCRIPT_WEB_APP_URL is set.
  */
 
-const WEB_APP_URL = import.meta.env.VITE_APP_SCRIPT_WEB_APP_URL || '';
+const isProd = import.meta.env.PROD;
+const DEV_SCRIPT_URL = import.meta.env.VITE_APP_SCRIPT_WEB_APP_URL || '';
+
+function getApiUrl() {
+  if (isProd) return '/api/sheets-app';
+  return DEV_SCRIPT_URL || '/api/sheets-app';
+}
 
 /**
  * @param {{
@@ -16,12 +23,13 @@ const WEB_APP_URL = import.meta.env.VITE_APP_SCRIPT_WEB_APP_URL || '';
  * @returns {Promise<{ ok: boolean; message?: string }>}
  */
 export async function appendOrder(payload) {
-  if (!WEB_APP_URL || WEB_APP_URL === '') {
+  const url = getApiUrl();
+  if (!url || url === '') {
     return { ok: false, message: 'Create order is not configured. Add VITE_APP_SCRIPT_WEB_APP_URL to your .env file.' };
   }
 
   try {
-    const response = await fetch(WEB_APP_URL, {
+    const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -39,7 +47,7 @@ export async function appendOrder(payload) {
     return { ok: data.success !== false, message: data.error };
   } catch (err) {
     console.error('appendOrder failed:', err);
-    return { ok: false, message: err.message || 'Failed to send order. If you see a CORS error, deploy the Apps Script and add the web app URL to .env.' };
+    return { ok: false, message: err.message || 'Failed to send order. In production, set APP_SCRIPT_WEB_APP_URL in Vercel.' };
   }
 }
 
@@ -50,12 +58,13 @@ export async function appendOrder(payload) {
  * @returns {Promise<{ ok: boolean; message?: string }>}
  */
 export async function markOrderFulfilled(orderId, fulfilmentDate) {
-  if (!WEB_APP_URL || WEB_APP_URL === '') {
+  const url = getApiUrl();
+  if (!url || url === '') {
     return { ok: false, message: 'Mark fulfilled is not configured. Add VITE_APP_SCRIPT_WEB_APP_URL to your .env file.' };
   }
 
   try {
-    const response = await fetch(WEB_APP_URL, {
+    const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'markFulfilled', orderId, fulfilmentDate }),
@@ -73,6 +82,6 @@ export async function markOrderFulfilled(orderId, fulfilmentDate) {
     return { ok: data.success !== false, message: data.error };
   } catch (err) {
     console.error('markOrderFulfilled failed:', err);
-    return { ok: false, message: err.message || 'Failed to update sheet.' };
+    return { ok: false, message: err.message || 'Failed to update sheet. In production, set APP_SCRIPT_WEB_APP_URL in Vercel.' };
   }
 }
